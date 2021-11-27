@@ -1,28 +1,21 @@
 plugins {
     kotlin("jvm") version "1.6.0"
-    id("com.github.johnrengelman.shadow") version "7.1.0"
+    `java-library`
     `maven-publish`
 }
 
 group = "org.bundleproject"
-version = "0.0.1"
+version = "0.0.2"
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation(kotlin("stdlib-jdk8", "1.6.0"))
+    api(kotlin("stdlib-jdk8", "1.6.0"))
 }
 
 tasks {
-    shadowJar {
-        archiveBaseName.set("libVersion")
-        archiveClassifier.set("")
-
-        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-    }
-
     publishing {
         publications {
             create<MavenPublication>("maven") {
@@ -30,8 +23,8 @@ tasks {
                 artifactId = "libversion"
                 version = project.version as String
 
-                artifact(shadowJar) {
-                    builtBy(shadowJar)
+                artifact(jar) {
+                    builtBy(jar)
                 }
             }
         }
