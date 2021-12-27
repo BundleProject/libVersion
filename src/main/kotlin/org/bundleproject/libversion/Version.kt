@@ -1,5 +1,8 @@
 package org.bundleproject.libversion
 
+import kotlinx.serialization.Serializable
+
+@Serializable(Serializer::class)
 class Version(
     val major: Int,
     val minor: Int = 0,
